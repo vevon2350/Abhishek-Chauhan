@@ -1,0 +1,6 @@
+{
+  "name": "Pragya Electric",
+  "description": "Pragya Electric booking and local home solutions application with secure online payments.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

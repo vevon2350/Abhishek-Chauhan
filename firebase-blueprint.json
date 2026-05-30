@@ -1,0 +1,91 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Pragya Electric registered user accounts",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The unique user identity in Firebase Auth" },
+        "name": { "type": "string", "description": "Full name of the user" },
+        "phone": { "type": "string", "description": "Verified mobile phone number of the user" },
+        "role": { "type": "string", "enum": ["customer", "technician", "admin"], "description": "User permissions group role" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp in UTC ISO format" }
+      },
+      "required": ["userId", "name", "phone", "role", "createdAt"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Customer home electrical service bookings",
+      "type": "object",
+      "properties": {
+        "bookingId": { "type": "string", "description": "Unique booking identification ID" },
+        "userId": { "type": "string", "description": "Identifier of the client user who booked it" },
+        "name": { "type": "string", "description": "Contact customer name" },
+        "phone": { "type": "string", "description": "Contact phone number" },
+        "address": { "type": "string", "description": "Customer service address" },
+        "problem": { "type": "string", "description": "Written description of electrical failure" },
+        "serviceType": { "type": "string", "description": "Underlying category of electrical service" },
+        "date": { "type": "string", "description": "Scheduled service booking date formatted as DD-MM-YYYY" },
+        "status": { "type": "string", "enum": ["Paid", "Refunded", "Completed", "Pending"], "description": "Current status of the customer service order" },
+        "amount": { "type": "number", "description": "The payment total transaction cost" },
+        "paymentId": { "type": "string", "description": "Associated Razorpay online transaction gateway ID" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["bookingId", "userId", "name", "phone", "address", "problem", "serviceType", "date", "status", "amount", "paymentId", "createdAt"]
+    },
+    "Job": {
+      "title": "Job",
+      "description": " Lucknow electrical gigs listed on the board",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "The job reference key ID" },
+        "userId": { "type": "string", "description": "ID of user who published the job request" },
+        "title": { "type": "string", "description": "Title of work demand" },
+        "serviceType": { "type": "string", "description": "Troubleshoot service division type" },
+        "description": { "type": "string", "description": "Explanatory task details" },
+        "area": { "type": "string", "description": "Lucknow district locality region" },
+        "budget": { "type": "number", "description": "Task client compensation fee total in INR" },
+        "urgency": { "type": "string", "enum": ["Emergency", "Standard", "Flex"] },
+        "date": { "type": "string", "description": "Date of post formatted as DD-MM-YYYY" },
+        "status": { "type": "string", "enum": ["Open", "Applied", "Completed"] },
+        "applicantCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "serviceType", "description", "area", "budget", "urgency", "date", "status", "applicantCount", "createdAt"]
+    },
+    "Application": {
+      "title": "Application",
+      "description": "Technician bids placed on available board repair jobs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique application key identifier" },
+        "jobId": { "type": "string", "description": "Target job identity reference ID" },
+        "jobTitle": { "type": "string", "description": "Associated job header description" },
+        "name": { "type": "string", "description": "Applying electrician technician full name" },
+        "phone": { "type": "string", "description": "Active working callback contact phone" },
+        "experience": { "type": "string", "description": "Verified level of historical engineering expertise" },
+        "appliedAt": { "type": "string", "description": "Applied datetime log formatted as string" },
+        "applicantId": { "type": "string", "description": "Authenticated user identity of bidder" }
+      },
+      "required": ["id", "jobId", "jobTitle", "name", "phone", "experience", "appliedAt", "applicantId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Pragya user identity records mapped to individual auth accounts"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "General customer bookings directory entries"
+    },
+    "/jobs/{jobId}": {
+      "schema": "Job",
+      "description": "Live Lucknow job queue postings board database"
+    },
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Direct application logs containing plumber and electrical bids"
+    }
+  }
+}
